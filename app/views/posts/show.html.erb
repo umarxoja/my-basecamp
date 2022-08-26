@@ -1,0 +1,29 @@
+<div class="container"> 
+<p style="float: right;">
+<%= link_to "Back to posts", posts_path , style: "float: right;"%>
+  <%= button_to "Destroy this post", @post, method: :delete, style: "float: right;  margin-right: 10px;", class: "btn btn-danger"%>
+    <%= link_to edit_post_path(@post) do %>
+  <button class="btn btn-primary" style="float: right; margin-right: 10px;">Edit</button>
+  <% end %>
+</p>
+<h2 align="center"><%= @post.title %></h2>
+   <h5 align="center" style="margin-left: -296px;"><i class="bi bi-pen"></i><%= @post.user.email %> </h5> 
+    <h6  align="center" style="margin-left: -296px;"><i class="bi bi-eye"></i> <%= pluralize(@post.views, "view") %></h6>
+    <div>
+    <%= simple_format @post.body %>
+   </div> <br> <br>
+
+</div>
+
+
+<div class="container" style="width: 36%; float: left;">
+  <%= render 'comments/form', 
+    post: @post, 
+    comment: @post.comments.build,
+    submit_label: "Reply" %>
+  <% @comments.each do |comment| %>
+    <%= render 'comments/comment', 
+    post: @post, 
+    comment: comment %>
+  <% end %>
+</div>
